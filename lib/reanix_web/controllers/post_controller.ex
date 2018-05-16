@@ -6,7 +6,6 @@ defmodule ReanixWeb.PostController do
 
   action_fallback ReanixWeb.FallbackController
 
-  plug :load_user
   plug :load_post when action in [:show, :update, :delete]
   plug :ensure_author when action in [:update, :delete]
 
@@ -43,11 +42,6 @@ defmodule ReanixWeb.PostController do
   end
 
   # Private functions
-
-  defp load_user(conn, _) do
-    user = Reanix.Accounts.get_current_user(conn)
-    assign(conn, :user, user)
-  end
   
   defp load_post(%{path_params: %{"slug" => slug}} = conn, _) do
     post = Blog.get_post!(slug)

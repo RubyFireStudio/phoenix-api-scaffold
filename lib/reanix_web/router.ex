@@ -28,6 +28,7 @@ defmodule ReanixWeb.Router do
 
     plug Guardian.Plug.VerifyHeader
     plug Guardian.Plug.LoadResource
+    plug ReanixWeb.Plug.LoadUser
   end
 
   scope "/api", ReanixWeb do

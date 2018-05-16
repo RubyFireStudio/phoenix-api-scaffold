@@ -26,20 +26,6 @@ defmodule ReanixWeb do
     end
   end
 
-  def user_controller do
-    quote do
-      def action(%{private: %{guardian_default_resource: current_user}} = conn, _) do
-        args = [conn, conn.params, current_user]
-        apply(__MODULE__, action_name(conn), args)
-      end
-
-      def action(%{private: %{guardian_default_resource: current_user}} = conn, _) do
-        args = [conn, conn.params, current_user]
-        apply(__MODULE__, action_name(conn), args)
-      end
-    end
-  end
-
   def view do
     quote do
       use Phoenix.View,
