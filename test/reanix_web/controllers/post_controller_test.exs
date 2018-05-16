@@ -82,6 +82,12 @@ defmodule ReanixWeb.PostControllerTest do
       conn = put conn, post_path(conn, :update, post), post: @invalid_attrs
       assert json_response(conn, 422)["errors"] != %{}
     end
+
+    test "renders 403 without permissions", %{conn: conn, post: post} do
+      conn = Reanix.Accounts.sign_in_user(conn, insert(:user))
+      conn = put conn, post_path(conn, :update, post), post: @update_attrs
+      assert json_response(conn, 403)["errors"] != %{}
+    end
   end
 
   describe "delete post" do
@@ -94,6 +100,12 @@ defmodule ReanixWeb.PostControllerTest do
       assert_error_sent 404, fn ->
         get conn, post_path(conn, :show, post)
       end
+    end
+
+    test "renders 403 without permissions", %{conn: conn, post: post} do
+      conn = Reanix.Accounts.sign_in_user(conn, insert(:user))
+      conn = delete conn, post_path(conn, :delete, post)
+      assert json_response(conn, 403)["errors"] != %{}
     end
   end
 

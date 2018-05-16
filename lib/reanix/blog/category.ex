@@ -9,6 +9,8 @@ defmodule Reanix.Blog.Category do
     field :name, :string
     field :slug, :string
 
+    has_many :posts, Reanix.Blog.Post
+
     timestamps()
   end
 

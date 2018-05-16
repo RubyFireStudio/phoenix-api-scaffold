@@ -1,7 +1,7 @@
 defmodule ReanixWeb.ErrorView do
   use ReanixWeb, :view
 
-  def render("permission_denied", _assigns) do
+  def render("permission_denied.json", _assigns) do
     %{errors: "Permission denied"}
   end
 

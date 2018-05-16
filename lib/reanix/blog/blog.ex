@@ -7,6 +7,7 @@ defmodule Reanix.Blog do
   alias Reanix.Repo
 
   alias Reanix.Blog.Category
+  alias Reanix.Accounts.User
 
   @doc """
   Returns the list of categories.
@@ -157,6 +158,22 @@ defmodule Reanix.Blog do
     %Post{}
     |> Post.changeset(attrs)
     |> Repo.insert()
+  end
+
+  @doc """
+  Creates a post with User referencies.
+
+  ## Examples
+
+      iex> create_post(%User{}, %{field: value})
+      {:ok, %Post{}}
+
+      iex> create_post(%User{}, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_post_by_user(%User{id: id}, attrs \\ %{}) do
+    attrs |> Enum.into(%{"author_id" => id}) |> create_post()
   end
 
   @doc """

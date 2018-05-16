@@ -13,8 +13,9 @@ defmodule Reanix.Blog.Post do
     field :slug, :string
     field :status, :string
     field :title, :string
-    field :category_id, :id
-    field :author_id, :id
+
+    belongs_to :category, Reanix.Blog.Category
+    belongs_to :author, Reanix.Accounts.User 
 
     timestamps()
   end

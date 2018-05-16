@@ -13,6 +13,8 @@ defmodule Reanix.Accounts.User do
     field(:is_superuser, :boolean, default: false)
     field(:last_login, :naive_datetime)
 
+    has_many :posts, Reanix.Blog.Post
+
     timestamps()
   end
 
