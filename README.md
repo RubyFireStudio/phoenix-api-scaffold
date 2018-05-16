@@ -1,4 +1,5 @@
 # Reanix - React + Phoenix project template
+[![Build Status](https://semaphoreci.com/api/v1/elusivespirit/phoenix-api-scaffold/branches/master/badge.svg)](https://semaphoreci.com/elusivespirit/phoenix-api-scaffold)
 
 This is a basic setup for an React(16) + Phoenix(1.3)/Elixir(1.6) project, using webpack(3) and users with authentication.
 
