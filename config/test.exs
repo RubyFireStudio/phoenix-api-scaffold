@@ -15,8 +15,8 @@ config :bcrypt_elixir, log_rounds: 4
 # Configure your database
 config :reanix, Reanix.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: System.get_env("DATABASE_POSTGRESQL_USERNAME") || "postgres",
+  password: System.get_env("DATABASE_POSTGRESQL_PASSWORD") || "postgres",
   database: "reanix_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
