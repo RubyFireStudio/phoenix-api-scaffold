@@ -1,6 +1,5 @@
 defmodule ReanixWeb.PostControllerTest do
   use ReanixWeb.ConnCase
-  import ReanixWeb.Guardian
 
   alias Reanix.Blog.Post
 
@@ -8,18 +7,8 @@ defmodule ReanixWeb.PostControllerTest do
   @update_attrs %{announcement: "some updated announcement", body: "some updated body", image: "some updated image", publication_date: ~N[2011-05-18 15:01:01.000000], slug: "some updated slug", status: "some updated status", title: "some updated title"}
   @invalid_attrs %{announcement: nil, body: nil, image: nil, publication_date: nil, slug: nil, status: nil, title: nil}
 
-  setup %{conn: conn} do
-    {:ok, conn: put_req_header(conn, "accept", "application/json")}
-  end
-
   setup do
     [category: insert(:category)]
-  end
-
-  setup %{conn: conn} do
-    {:ok, token, _} = encode_and_sign(insert(:user), %{}, token_type: :access)
-
-    [auth_conn: put_req_header(conn, "authorization", "bearer: #{token}")]
   end
 
   describe "index" do

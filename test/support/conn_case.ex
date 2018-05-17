@@ -36,4 +36,15 @@ defmodule ReanixWeb.ConnCase do
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
+
+  setup %{conn: conn} do
+    {:ok, conn: Plug.Conn.put_req_header(conn, "accept", "application/json")}
+  end
+
+  setup %{conn: conn} do
+    user = Reanix.Factory.insert(:user)
+    {:ok, token, _} = ReanixWeb.Guardian.encode_and_sign(user, %{}, token_type: :access)
+
+    {:ok, auth_conn: Plug.Conn.put_req_header(conn, "authorization", "bearer: #{token}")}
+  end
 end

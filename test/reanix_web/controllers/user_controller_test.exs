@@ -1,6 +1,8 @@
 defmodule ReanixWeb.UserControllerTest do
   use ReanixWeb.ConnCase
 
+  import Ecto.Query, only: [from: 2]
+
   alias Reanix.Accounts
   alias Reanix.Accounts.User
 
@@ -24,7 +26,8 @@ defmodule ReanixWeb.UserControllerTest do
   }
   @invalid_attrs %{name: nil, email: nil, password_hash: nil, username: nil}
 
-  defp usermap(user), do: Map.drop(user, [:last_login, :password, "last_login", "password"])
+  # defp usermap([user]), do: usermap(user)
+  defp usermap(user),   do: Map.drop(user, [:last_login, :password, "last_login", "password"])
 
   defp is_the_same_users([], []), do: true
 
@@ -45,12 +48,12 @@ defmodule ReanixWeb.UserControllerTest do
     user
   end
 
-  setup %{conn: conn} do
-    {:ok, conn: put_req_header(conn, "accept", "application/json")}
-  end
-
   describe "index users" do
     test "lists all users", %{conn: conn} do
+      [user | _ ] = Reanix.Repo.all(
+        from u in User, where: u.username != "admin"
+      )
+      Reanix.Repo.delete(user)
       t = Accounts.get_user_by_username("admin")
 
       admin = %{
@@ -106,11 +109,11 @@ defmodule ReanixWeb.UserControllerTest do
       assert %{"id" => id} = resp["data"]
       assert %{"token" => token} = resp["meta"]
 
-      conn = 
+      conn =
         conn
         |> recycle()
         |> put_req_header("authorization", "bearer: #{token}")
-      
+
       conn = get(conn, user_path(conn, :show, id, %{"username" => @create_attrs.username}))
       assert data = json_response(conn, 200)["data"]
 

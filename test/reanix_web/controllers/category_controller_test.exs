@@ -1,23 +1,11 @@
 defmodule ReanixWeb.CategoryControllerTest do
   use ReanixWeb.ConnCase
 
-  import ReanixWeb.Guardian
-
   alias Reanix.Blog.Category
 
   @create_attrs %{name: "some name", slug: "some slug"}
   @update_attrs %{name: "some updated name", slug: "some updated slug"}
   @invalid_attrs %{name: nil, slug: nil}
-
-  setup %{conn: conn} do
-    {:ok, conn: put_req_header(conn, "accept", "application/json")}
-  end
-
-  setup %{conn: conn} do
-    {:ok, token, _} = encode_and_sign(insert(:user), %{}, token_type: :access)
-
-    [auth_conn: put_req_header(conn, "authorization", "bearer: #{token}")]
-  end
 
   describe "index" do
     test "lists all categories", %{conn: conn} do
