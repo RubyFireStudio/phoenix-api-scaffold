@@ -26,8 +26,8 @@ defmodule Reanix.Factory do
       slug: "some slug",
       status: "some status",
       title: "some title",
-      author_id: insert(:user).id,
-      category_id: insert(:category).id
+      author: insert(:user),
+      category: insert(:category)
     }
   end
 end

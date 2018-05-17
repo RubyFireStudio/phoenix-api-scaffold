@@ -39,7 +39,9 @@ defmodule ReanixWeb.Router do
 
       post "/sessions", SessionController, :create
       resources "/users", UserController, only: [:create]
+
       resources "/posts", PostController, only: [:index, :show], param: "slug"
+      resources "/categories", CategoryController, only: [:index, :show], param: "slug"
     end
 
     scope "/" do
@@ -48,7 +50,9 @@ defmodule ReanixWeb.Router do
       delete "/sessions", SessionController, :delete
       post "/sessions/refresh", SessionController, :refresh
       resources "/users", UserController, except: [:create, :new, :edit]
+
       resources "/posts", PostController, only: [:create, :update, :delete], param: "slug"
+      resources "/categories", CategoryController, only: [:create, :update, :delete], param: "slug"
     end
   end
 

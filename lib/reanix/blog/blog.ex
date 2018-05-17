@@ -39,8 +39,8 @@ defmodule Reanix.Blog do
       ** (Ecto.NoResultsError)
 
   """
-  def get_category!(id) when is_integer(id), do: Repo.get!(Category, id)
-  def get_category!(slug), do: Repo.get_by!(Category, slug: slug)
+  def get_category!(id) when is_integer(id), do: Repo.get!(Category, id) |> Repo.preload(:posts)
+  def get_category!(slug), do: Repo.get_by!(Category, slug: slug) |> Repo.preload(:posts)
 
   @doc """
   Creates a category.

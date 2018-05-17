@@ -26,11 +26,13 @@ defmodule Reanix.BlogTest do
 
     test "get_category!/1 returns the category with given id" do
       category = category_fixture()
+      category = Repo.preload(category, :posts)
       assert Blog.get_category!(category.id) == category
     end
 
     test "get_category!/1 returns the category with given slug" do
       category = category_fixture()
+      category = Repo.preload(category, :posts)
       assert Blog.get_category!(category.slug) == category
     end
 
@@ -54,6 +56,7 @@ defmodule Reanix.BlogTest do
 
     test "update_category/2 with invalid data returns error changeset" do
       category = category_fixture()
+      category = Repo.preload(category, :posts)
       assert {:error, %Ecto.Changeset{}} = Blog.update_category(category, @invalid_attrs)
       assert category == Blog.get_category!(category.id)
     end
